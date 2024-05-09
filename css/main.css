@@ -1411,7 +1411,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #9d16ff;
+    background: #ff2a21;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2654,6 +2654,12 @@ ul.breadcrumb li:last-child {
     color: #eee;
   }
 }
+mark.search-keyword {
+  background: transparent;
+  border-bottom: 1px dashed #ff2a2a;
+  color: #ff2a2a;
+  font-weight: bold;
+}
 .use-motion .animated {
   animation-fill-mode: none;
   visibility: inherit;
@@ -2778,6 +2784,7 @@ header.header {
 }
 .menu .menu-item a {
   padding: 5px 20px;
+  position: relative;
   transition-property: background-color;
   display: flex;
   align-items: center;
@@ -2785,12 +2792,7 @@ header.header {
 .menu .menu-item a .badge {
   margin-left: auto;
 }
-@media (max-width: 991px) {
-  .menu .menu-item.menu-item-search {
-    display: none;
-  }
-}
-.main-menu .menu-item-active::after {
+.menu .menu-item a.menu-item-active::after {
   background: #bbb;
   border-radius: 50%;
   content: ' ';
@@ -2800,6 +2802,11 @@ header.header {
   right: 15px;
   top: 50%;
   width: 6px;
+}
+@media (max-width: 991px) {
+  .menu .menu-item.menu-item-search {
+    display: none;
+  }
 }
 .sub-menu {
   margin: 0;

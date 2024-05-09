@@ -23,7 +23,7 @@ HTMLElement.prototype.wrap = function(wrapper) {
 
 NexT.utils = {
 
-  registerExtURL: function() {
+  registerExtURL() {
     document.querySelectorAll('span.exturl').forEach(element => {
       const link = document.createElement('a');
       // https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings
@@ -39,13 +39,13 @@ NexT.utils = {
     });
   },
 
-  registerCodeblock: function(element) {
+  registerCodeblock(element) {
     const inited = !!element;
-    let figure = (inited ? element : document).querySelectorAll('figure.highlight');
-    let isHljsWithWrap = true;
-    if (figure.length === 0) {
-      figure = document.querySelectorAll('pre:not(.mermaid)');
-      isHljsWithWrap = false;
+    let figure;
+    if (CONFIG.hljswrap) {
+      figure = (inited ? element : document).querySelectorAll('figure.highlight');
+    } else {
+      figure = document.querySelectorAll('pre');
     }
     figure.forEach(element => {
       if (!inited) {
@@ -61,10 +61,12 @@ NexT.utils = {
         });
       }
       const height = parseInt(window.getComputedStyle(element).height.replace('px', ''), 10);
-      const needFold = CONFIG.fold.enable && (height > CONFIG.fold.height);
+      // Skip pre > .mermaid for folding but keep the copy button
+      // Note that it only works before mermaid.js loaded (race condition)
+      const needFold = CONFIG.fold.enable && (height > CONFIG.fold.height) && !element.querySelector('.mermaid');
       if (!needFold && !CONFIG.copycode.enable) return;
       let target;
-      if (isHljsWithWrap && CONFIG.copycode.style === 'mac') {
+      if (CONFIG.hljswrap && CONFIG.copycode.style === 'mac') {
         target = element;
       } else {
         let box = element.querySelector('.code-container');
@@ -129,7 +131,7 @@ NexT.utils = {
     });
   },
 
-  wrapTableWithBox: function() {
+  wrapTableWithBox() {
     document.querySelectorAll('table').forEach(element => {
       const box = document.createElement('div');
       box.className = 'table-container';
@@ -137,7 +139,7 @@ NexT.utils = {
     });
   },
 
-  registerVideoIframe: function() {
+  registerVideoIframe() {
     document.querySelectorAll('iframe').forEach(element => {
       const supported = [
         'www.youtube.com',
@@ -159,7 +161,7 @@ NexT.utils = {
     });
   },
 
-  updateActiveNav: function() {
+  updateActiveNav() {
     if (!Array.isArray(NexT.utils.sections)) return;
     let index = NexT.utils.sections.findIndex(element => {
       return element && element.getBoundingClientRect().top > 10;
@@ -172,7 +174,7 @@ NexT.utils = {
     this.activateNavByIndex(index);
   },
 
-  registerScrollPercent: function() {
+  registerScrollPercent() {
     const backToTop = document.querySelector('.back-to-top');
     const readingProgressBar = document.querySelector('.reading-progress-bar');
     // For init back to top in sidebar if page was scrolled after page refresh.
@@ -204,7 +206,7 @@ NexT.utils = {
   /**
    * Tabs tag listener (without twitter bootstrap).
    */
-  registerTabsTag: function() {
+  registerTabsTag() {
     // Binding `nav-tabs` & `tab-content` by real time permalink changing.
     document.querySelectorAll('.tabs ul.nav-tabs .tab').forEach(element => {
       element.addEventListener('click', event => {
@@ -269,7 +271,7 @@ NexT.utils = {
     window.dispatchEvent(new Event('tabs:register'));
   },
 
-  registerCanIUseTag: function() {
+  registerCanIUseTag() {
     // Get responsive height passed from iframe.
     window.addEventListener('message', ({ data }) => {
       if (typeof data === 'string' && data.includes('ciu_embed')) {
@@ -280,7 +282,7 @@ NexT.utils = {
     }, false);
   },
 
-  registerActiveMenuItem: function() {
+  registerActiveMenuItem() {
     document.querySelectorAll('.menu-item a[href]').forEach(target => {
       const isSamePath = target.pathname === location.pathname || target.pathname === location.pathname.replace('index.html', '');
       const isSubPath = !CONFIG.root.startsWith(target.pathname) && location.pathname.startsWith(target.pathname);
@@ -288,7 +290,7 @@ NexT.utils = {
     });
   },
 
-  registerLangSelect: function() {
+  registerLangSelect() {
     const selects = document.querySelectorAll('.lang-select');
     selects.forEach(sel => {
       sel.value = CONFIG.page.lang;
@@ -303,7 +305,7 @@ NexT.utils = {
     });
   },
 
-  registerSidebarTOC: function() {
+  registerSidebarTOC() {
     this.sections = [...document.querySelectorAll('.post-toc:not(.placeholder-toc) li a.nav-link')].map(element => {
       const target = document.getElementById(decodeURI(element.getAttribute('href')).replace('#', ''));
       // TOC item animation navigate.
@@ -325,7 +327,7 @@ NexT.utils = {
     this.updateActiveNav();
   },
 
-  registerPostReward: function() {
+  registerPostReward() {
     const button = document.querySelector('.reward-container button');
     if (!button) return;
     button.addEventListener('click', () => {
@@ -333,7 +335,7 @@ NexT.utils = {
     });
   },
 
-  activateNavByIndex: function(index) {
+  activateNavByIndex(index) {
     const nav = document.querySelector('.post-toc:not(.placeholder-toc) .nav');
     if (!nav) return;
 
@@ -374,7 +376,7 @@ NexT.utils = {
     });
   },
 
-  updateSidebarPosition: function() {
+  updateSidebarPosition() {
     if (window.innerWidth < 1200 || CONFIG.scheme === 'Pisces' || CONFIG.scheme === 'Gemini') return;
     // Expand sidebar on post detail page by default, when post has a toc.
     const hasTOC = document.querySelector('.post-toc:not(.placeholder-toc)');
@@ -388,7 +390,7 @@ NexT.utils = {
     }
   },
 
-  activateSidebarPanel: function(index) {
+  activateSidebarPanel(index) {
     const sidebar = document.querySelector('.sidebar-inner');
     const activeClassNames = ['sidebar-toc-active', 'sidebar-overview-active'];
     if (sidebar.classList.contains(activeClassNames[index])) return;
@@ -415,7 +417,20 @@ NexT.utils = {
     sidebar.classList.replace(activeClassNames[1 - index], activeClassNames[index]);
   },
 
-  getScript: function(src, options = {}, legacyCondition) {
+  updateFooterPosition() {
+    if (CONFIG.scheme === 'Pisces' || CONFIG.scheme === 'Gemini') return;
+    function updateFooterPosition() {
+      const footer = document.querySelector('.footer');
+      const containerHeight = document.querySelector('.main').offsetHeight + footer.offsetHeight;
+      footer.classList.toggle('footer-fixed', containerHeight <= window.innerHeight);
+    }
+
+    updateFooterPosition();
+    window.addEventListener('resize', updateFooterPosition);
+    window.addEventListener('scroll', updateFooterPosition, { passive: true });
+  },
+
+  getScript(src, options = {}, legacyCondition) {
     if (typeof options === 'function') {
       return this.getScript(src, {
         condition: legacyCondition
@@ -466,7 +481,7 @@ NexT.utils = {
     });
   },
 
-  loadComments: function(selector, legacyCallback) {
+  loadComments(selector, legacyCallback) {
     if (legacyCallback) {
       return this.loadComments(selector).then(legacyCallback);
     }
@@ -485,5 +500,14 @@ NexT.utils = {
       });
       intersectionObserver.observe(element);
     });
+  },
+
+  debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
   }
 };

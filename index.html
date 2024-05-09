@@ -15,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
 
 
@@ -167,7 +167,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-05-09 13:25:20 / 修改时间：13:43:56" itemprop="dateCreated datePublished" datetime="2024-05-09T13:25:20+08:00">2024-05-09</time>
+      <time title="创建时间：2024-05-09 13:25:20 / 修改时间：14:44:58" itemprop="dateCreated datePublished" datetime="2024-05-09T13:25:20+08:00">2024-05-09</time>
     </span>
 
   
@@ -183,84 +183,14 @@
           <h2 id="实现在一台电脑上同时使用多个GitHub账号"><a href="#实现在一台电脑上同时使用多个GitHub账号" class="headerlink" title="实现在一台电脑上同时使用多个GitHub账号"></a>实现在一台电脑上同时使用多个GitHub账号</h2><p>亲测有效，麻烦在做的时候慢一点认真一点。</p>
 <p>每个程序员都可能有多个GitHub账号，今天就和大家聊一下如何在一台电脑上同时使用多个 GitHub 账号，通过以下四个步骤就可以实现。</p>
 <h3 id="1-取消全局配置"><a href="#1-取消全局配置" class="headerlink" title="1. 取消全局配置"></a>1. 取消全局配置</h3><p>如果想在一台电脑上使用多个 GitHub 账号，使用全局配置是不行的。如果使用全局配置的话，那么每次使用 git 命令时都会使用这个全局的用户名和邮箱，就没有办法区分不同的 GitHub 账号了。</p>
-<p>在最开始使用GitHub配置ssh时，大部分人都使用过下面这两条语句：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;你的用户名&quot;</span><br><span class="line">git config --global user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
-<p>这两条命令是在进行全局配置，对于想要在一台电脑上使用多个GitHub账号是不行的，需要利用下面的两条语句来取消全局配置。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset user.name</span><br><span class="line">git config --global --unset user.email</span><br></pre></td></tr></table></figure>
-<p>上面的命令直接赋值粘贴输入就好了，不需要将 user.name 修改成你的用户名。</p>
-<h3 id="2-SSH"><a href="#2-SSH" class="headerlink" title="2. SSH"></a>2. SSH</h3><h4 id="2-1-生成ssh"><a href="#2-1-生成ssh" class="headerlink" title="2.1 生成ssh"></a>2.1 生成ssh</h4><p>本地仓库是通过 ssh 的方式和远程 GitHub 仓库建立连接的，所以我们要生成 ssh 私钥和公钥。私钥放在本地，公钥复制粘贴到 GitHub 的 SSH 设置中。这样当公钥和私钥配对时，连接就建立了。</p>
-<p>由于我们想使用多个 GitHub 账号，所以我们就需要建立多个公钥和私钥。</p>
-<p>在这里假设我们有三个 GitHub 账号想在一台电脑上同时使用，三个账号分别为：ID1，ID2，ID3(ID1,ID2,ID3即为下图中的名字，比如我的 ID1 就是 happyCoding1024)，对应的邮箱分别为E1，E2，E3，现在需要生成三个ssh。</p>
-<p>ID1, ID2, ID3 是Github的用户名。</p>
-<p>E1, E2, E3 是与 GitHub 用户名对应的邮箱。</p>
-<p>生成第一个ssh：</p>
-<p>在桌面打开GitBash或者cmd(在桌面按住shift键再按右键或弹出在此处打开命令窗口)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;E1&quot;</span><br></pre></td></tr></table></figure>
-
-<p>运行到这一步时输入红色方框中的内容 id_rsa_one ，表示第一个私钥。</p>
-<p>红色方框中的内容需要自己输入，表示的是第一个私钥的名称。</p>
-<p>紧接着会让你输入私码</p>
-<p>生成第二个ssh：</p>
-<p>紧接着运行下面这条语句：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;E2&quot;</span><br></pre></td></tr></table></figure>
-<p>在红色方框中输入 id_rsa_two</p>
-<p>生成第三个ssh：</p>
-<p>再运行下面这条语句：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;E3&quot;</span><br></pre></td></tr></table></figure>
-<p>在红色框中输入 id_rsa_three</p>
-<p>至此三个ssh生成完毕。</p>
-<p>将三个公钥文件 id_rsa_one.pub id_rsa_two.pub id_rsa_three.pub (默认路径 C:\Users\你的用户名.ssh )分别复制粘贴到三个GitHub账号的ssh key中。</p>
-<p>这一步很简单打开 GitHub 中的设置选择 SSH key ，点击添加即可，这一步也可以自行百度，只需点几下鼠标就可以了。</p>
-<h4 id="2-2-添加私钥"><a href="#2-2-添加私钥" class="headerlink" title="2.2 添加私钥"></a>2.2 添加私钥</h4><p>由于现在取消了全局配置，所以需要将私钥加到 ssh 中，这样当用到的时候 ssh 才能够识别出来。</p>
-<p>1、打开ssh-agent<br>(1)如果你是github官方的bash：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-agent -s</span><br></pre></td></tr></table></figure>
-
-<p>(2) 如果你是其它，比如msysgit：</p>
-<p>eval $(ssh-agent -s)<br>1<br>一般情况下第二种是好用的。</p>
-<p>第一种如果不行就尝试第二种，成功的截图如下图所示：</p>
-<p>2、添加私钥</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh-add ~/.ssh/id_rsa_one</span><br><span class="line"></span><br><span class="line">ssh-add ~/.ssh/id_rsa_two</span><br><span class="line"></span><br><span class="line">ssh-add ~/.ssh/id_rsa_three</span><br></pre></td></tr></table></figure>
-<p>如果生成ssh 密钥就按照本文的命名方式那么将上面的代码复制粘贴回车就好，否则需要将名称改成你自己设置的私钥名称。</p>
-<h4 id="2-3-修改config文件（核心）"><a href="#2-3-修改config文件（核心）" class="headerlink" title="2.3 修改config文件（核心）"></a>2.3 修改config文件（核心）</h4><p>由于在最开始的时候取消了全局配置，所以在这个要配置一下 ssh 的 config 文件，目的就是告诉 ssh 访问某个 GitHub 账号需要使用哪一个私钥。</p>
-<p>在 .ssh 文件夹下运行GitBash，生成 config 文件。</p>
-<p>touch config<br>1<br>打开 config 文件，将以下内容复制到 config 文件中。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 第一个</span><br><span class="line">Host one.github.com</span><br><span class="line">HostName github.com</span><br><span class="line">User ID1 # 用户名1</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_one</span><br><span class="line"></span><br><span class="line"># 第二个</span><br><span class="line">Host two.github.com  # 前缀名可以任意设置</span><br><span class="line">HostName github.com</span><br><span class="line">User ID2 # 用户名2</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_two</span><br><span class="line"></span><br><span class="line"># 第三个</span><br><span class="line">Host three.github.com  # 前缀名可以任意设置</span><br><span class="line">HostName github.com</span><br><span class="line">User ID3 # 用户名3</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_three</span><br></pre></td></tr></table></figure>
-<p>如果 Host 始终为 github.com ，那么就只能使用一个私钥。通过上面的设置，每个 GitHub 账号都有一个自己的 HOST(这样就区分出了不同的 GItHub 账号)，但是每个 Host 的域名(HostName)做 CNAME 解析又都解析到 github.com(这样可以保证访问的是 GitHub, 如果你想访问码云，那么就改成码云的域名即可)。这样 SSH 就可以通过不同的 Host 区分出不同的 GitHub 账号，然后使用 Host 对应的私钥和远程的 GitHub 仓库进行连接。</p>
-<p>Host one.github.com 前缀名 one 可以随意设置<br>HostName github.com 如果要连接的远程仓库是 GitHub 保持不变，如果是其它的远程仓库就改成相应的域名<br>User ID1 ID1 表示用户名，可以就写 GitHub 的用户名<br>IdentityFile ~&#x2F;.ssh&#x2F;id_rsa_one 最后的 id_rsa_one 表示的是私钥名称。</p>
-<h4 id="2-4-测试"><a href="#2-4-测试" class="headerlink" title="2.4 测试"></a>2.4 测试</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ssh –T git@one.github.com</span><br><span class="line"></span><br><span class="line">ssh –T git@two.github.com</span><br><span class="line"></span><br><span class="line">ssh –T git@three.github.com</span><br></pre></td></tr></table></figure>
-<p>如果出现下图，则说明成功：</p>
-<p>做到这一步 ssh 的部分就差不多完成了，下面是和 GitHub 有关的部分，胜利就在眼前。</p>
-<h3 id="3-配置本地项目"><a href="#3-配置本地项目" class="headerlink" title="3. 配置本地项目"></a>3. 配置本地项目</h3><h4 id="3-1-从远程仓库-clone-仓库"><a href="#3-1-从远程仓库-clone-仓库" class="headerlink" title="3.1 从远程仓库 clone 仓库"></a>3.1 从远程仓库 clone 仓库</h4><p>如果 clone 一次不成功就多试几次，有时候会出现 time out 的提示。</p>
-<p>注意与之前的操作有所变化：</p>
-<p>例如我要克隆的远程仓库的 ssh 地址是：<a href="mailto:&#103;&#105;&#116;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;">&#103;&#105;&#116;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;</a>:happyCoding1024&#x2F;FrontendLearningTool.git</p>
-<p>假设这个远程仓库是在 GitHub 账号为 ID1 的仓库中，那么克隆时需要改成下面的形式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone  git@one.github.com:happyCoding1024/FrontendLearningTool.git</span><br></pre></td></tr></table></figure>
-<p>关于为什么是这样我的理解是这样的：</p>
-<p>通过之前 2.3 节配置好的config 文件可知， 当访问 <a href="mailto:&#103;&#105;&#116;&#64;&#x6f;&#x6e;&#101;&#46;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#116;&#64;&#x6f;&#x6e;&#101;&#46;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#x63;&#x6f;&#109;</a> 时本地进行域名解析时解析成 <a href="mailto:&#x67;&#x69;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#109;">&#x67;&#x69;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#109;</a> 经过这样的解析之后就和远程仓库的 ssh 地址对应上了因此可以访问到远程仓库，而且当进行这一步时通过 config 配置文件可知这也告诉了要使用的是哪一个 私钥。</p>
-<p>这样一来 ssh 地址是对的，私钥也能和对应的 GItHub 账号中的 SSH 公钥配对，那么就可以正常地从远程仓库克隆了。</p>
-<p>当克隆成功后这个时候，在控制台中运行</p>
-<p>git remote -v<br>1<br>你会发现输出下面的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  git@one.github.com:happyCoding1024/FrontendLearningTool.git (fetch)</span><br><span class="line">origin  git@one.github.com:happyCoding1024/FrontendLearningTool.git (push)</span><br></pre></td></tr></table></figure>
-<p>如果输出内容不是上面这样，那么你需要修改远程仓库的 origin （只要是clone成功了一般不会下面的情况）</p>
-<p>方法如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote rm origin # 先删掉远程仓库原来的origin</span><br><span class="line">git remote add origin git@one.github.com:happyCoding1024/FrontendLearningTool.git # 重新将远程仓库命名为origin</span><br></pre></td></tr></table></figure>
-<p>之前使用全局设置的时候运行 git remote -v 输出内容应该是下面这样：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">origin  git@github.com:happyCoding1024/FrontendLearningTool.git (fetch)</span><br><span class="line">origin  git@github.com:happyCoding1024/FrontendLearningTool.git (push)</span><br></pre></td></tr></table></figure>
-<p>这样以后在本地这个仓库下使用 git 等命令时提交到远程仓库时实际上是提交到 <a href="mailto:&#103;&#105;&#x74;&#64;&#111;&#110;&#101;&#46;&#103;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#64;&#111;&#110;&#101;&#46;&#103;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;</a>:happyCoding1024&#x2F;FrontendLearningTool.git 。</p>
-<p>本地 SSH 根据 config 文件的配置通过 one.github.com 可以确定使用哪一个私钥和远程仓库的公钥进行配对，经过域名解析后又可以连接到远程真正的仓库地址 <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;</a>:happyCoding1024&#x2F;FrontendLearningTool.git。</p>
-<h4 id="3-2-修改本地仓库的用户名和邮箱"><a href="#3-2-修改本地仓库的用户名和邮箱" class="headerlink" title="3.2 修改本地仓库的用户名和邮箱"></a>3.2 修改本地仓库的用户名和邮箱</h4><p>由于现在不是全局配置了，所以每个仓库都需要配置各自的用户名和邮箱来确定这个仓库是和哪个 GitHub 账号连接的。</p>
-<p>在项目文件夹中右键打开 GitBash，然后执行下面 的语句，设置账号和相应的项目关联：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name  ID1</span><br><span class="line">git config user.email  E1</span><br></pre></td></tr></table></figure>
-<p>ID1: 指的是 GitHub 用户名</p>
-<p>E1: 指的是和这个 GitHub 账号关联的邮箱</p>
-<h3 id="4-提交"><a href="#4-提交" class="headerlink" title="4. 提交"></a>4. 提交</h3><p>恭喜，到达这步之后，就已经和远程仓库建立好连接了， 这个时候随便新建一个文件进行一下 push 操作尝试一下吧。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 新建一个 test.txt 文件</span><br><span class="line">touch test.txt</span><br></pre></td></tr></table></figure>
-<p>将这个文件提交到远程仓库：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add test.txt</span><br><span class="line">git commit -m &quot;commit test.txt&quot;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-<p>建议使用 git push 的时候尽量写完整，也不会很费事，不要直接写成 git push，因为以后默认只能推送到master分支，以后有可能还要推送到其它分支。</p>
-<p>-u 参数可以在推送的同时，将 origin 仓库的 master 分支设置为本地仓库当前分支的 upstream， 添加了这个参数之后，将来运行 git pull 命令从远程仓库获取内容时，本地仓库的这个分支就可以直接从 origin 的 master 分支获取内容，省去了另外添加参数的麻烦。</p>
-<p>完</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/05/09/%E5%9C%A8%E4%B8%80%E5%8F%B0%E7%94%B5%E8%84%91%E4%B8%8A%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAgithub%E8%B4%A6%E5%8F%B7-%E4%BA%B2%E6%B5%8B%E6%9C%89%E6%95%88/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -316,7 +246,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-05-09 12:32:57 / 修改时间：12:34:14" itemprop="dateCreated datePublished" datetime="2024-05-09T12:32:57+08:00">2024-05-09</time>
+      <time title="创建时间：2024-05-09 12:32:57 / 修改时间：14:45:42" itemprop="dateCreated datePublished" datetime="2024-05-09T12:32:57+08:00">2024-05-09</time>
     </span>
 
   
@@ -332,13 +262,14 @@
           <p><br>正所谓饱食思淫欲，哥们现在对片儿的要求也是越来越高了，不仅要看，要好看，还要有剧情看。嗯……那对于艺术鉴赏而言理解剧情还是很有必要的，但又不想学日文，只能是勉强通过中文字幕理解的样子。</br></p>
 <p>那么，岛国电影的中文字幕应该怎么找？</p>
 <p>内嵌字幕<br>这种一般在下载时的番号后面加-C即可，比如ABC-123就搜索ABC-123-C</p>
-<p>但哥们看久了就有精神洁癖了，甚至觉得内嵌字幕就是对视频资源的污染，那咋整呢</p>
-<p>外挂字幕<br> 无所谓，外挂字幕会出手。 </p>
-<p>名称	说明	文件类型	地址	备注<br>Subtitle Cat	字幕	📃文件	<a target="_blank" rel="noopener" href="https://subtitlecat.com/">https://subtitlecat.com</a>	基本上该有的都有了<br>AV Subs	字幕	📃文件	<a target="_blank" rel="noopener" href="https://www.avsubtitles.com/">https://www.avsubtitles.com</a>	AV字幕捡漏<br>ScanLover	字幕	📃文件	<a target="_blank" rel="noopener" href="https://scanlover.com/">https://scanlover.com</a>	AV字幕捡漏<br>上面3个网站基本上能找到有中文片源中的90%<br>剩下的有5%可以尝试谷歌搜索以下关键词：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[番号] 字幕</span><br><span class="line">[番号] subtitle</span><br></pre></td></tr></table></figure>
-
-<p>嗯，不过这个就很看运气了，大概率是找不到了<br>还有5%，就真的只在付费平台了。不值得，再等等吧哥们。<br>要不请求AI出动吧哥们</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/05/09/%E5%A6%82%E4%BD%95%E7%BB%99%E5%B2%9B%E5%9B%BD%E5%B0%8F%E7%94%B5%E5%BD%B1%E6%89%BE%E5%AD%97%E5%B9%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -392,9 +323,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-04-27 20:32:56 / 修改时间：18:38:07" itemprop="dateCreated datePublished" datetime="2024-04-27T20:32:56+08:00">2024-04-27</time>
+      <time title="创建时间：2024-04-27 20:32:56" itemprop="dateCreated datePublished" datetime="2024-04-27T20:32:56+08:00">2024-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-09 14:45:15" itemprop="dateModified" datetime="2024-05-09T14:45:15+08:00">2024-05-09</time>
     </span>
 
   
@@ -411,13 +348,15 @@
 <h2 id="标题：你好，世界"><a href="#标题：你好，世界" class="headerlink" title="标题：你好，世界"></a>标题：你好，世界</h2><p>欢迎使用 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>！这是你的第一篇博客文章。查看 <a target="_blank" rel="noopener" href="https://hexo.io/docs/">文档</a> 以获取更多信息。如果你在使用 Hexo 时遇到任何问题，你可以在 <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">故障排除</a> 中找到答案，或者你可以在 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a> 上问我。</p>
 <h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><h3 id="创建新文章"><a href="#创建新文章" class="headerlink" title="创建新文章"></a>创建新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;我的新文章&quot;</span></span><br></pre></td></tr></table></figure>
 <p>更多信息： <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">写作</a></p>
-<h3 id="运行服务器"><a href="#运行服务器" class="headerlink" title="运行服务器"></a>运行服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>更多信息： <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">服务器</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>更多信息： <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">生成</a></p>
-<h3 id="部署到远程站点"><a href="#部署到远程站点" class="headerlink" title="部署到远程站点"></a>部署到远程站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>更多信息： <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">部署</a></p>
-
+<h3 id="运行服务器"><a href="#运行服务器" class="headerlink" title="运行服务器"></a>运行服务器</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/04/27/hello-world/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -471,9 +410,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-04-27 18:35:50 / 修改时间：19:35:31" itemprop="dateCreated datePublished" datetime="2024-04-27T18:35:50+08:00">2024-04-27</time>
+      <time title="创建时间：2024-04-27 18:35:50" itemprop="dateCreated datePublished" datetime="2024-04-27T18:35:50+08:00">2024-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-09 14:45:28" itemprop="dateModified" datetime="2024-05-09T14:45:28+08:00">2024-05-09</time>
     </span>
 
   
@@ -490,21 +435,14 @@
 <li><p>按Win+S打开搜索框，输入cmd并以管理员身份运行命令提示符。</p>
 </li>
 <li><p>输入以下命令并按Enter键执行。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg.exe add &quot;HKEY_CURRENT_USER\Software\Classes\CLSID\&#123;86ca1aa0-34aa-4e8b-a509-50c905bae2a2&#125;\InprocServer32&quot; /f /ve</span><br></pre></td></tr></table></figure></li>
-<li><p>重启资源管理器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">taskkill /f /im explorer.exe</span><br><span class="line">start explorer.exe</span><br></pre></td></tr></table></figure></li>
-<li><p>回到桌面右击测试成功</p>
-</li>
-</ol>
-<hr>
-<ol start="5">
-<li><p>重新打开Win11新样式的右键菜单</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg delete &quot;HKCU\Software\Classes\CLSID\&#123;86ca1aa0-34aa-4e8b-a509-50c905bae2a2&#125;&quot; /f</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重复3，4步骤</p>
-</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/04/27/win11%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E6%94%B9%E5%9B%9E%E6%97%A7%E7%89%88%E9%A3%8E%E6%A0%BC-%E9%87%8D%E6%96%B0%E6%89%93%E5%BC%80%E6%96%B0%E6%A0%B7%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
